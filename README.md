@@ -1,3 +1,7 @@
+This is the WIP React Front-End app for the MHW_DB Wrapper application (https://github.com/app-0s/MHW_DB_React). This app makes calls to fetch the MHW DB data provided from the controllers, to then be displayed through this app.
+
+___
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>

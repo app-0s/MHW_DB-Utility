@@ -6,6 +6,16 @@ import Resistances from './shared-stats/resistances.js';
 import ArmorAttributes from './shared-stats/armor-attributes.js';
 import SkillRank from './shared-stats/skill-rank.js';
 
+// Images
+import DragonBlight from './../imgs/status-effect/DragonBlight_Icon.png';
+import FireBlight from './../imgs/status-effect/Fireblight_Icon.png';
+import IceBlight from './../imgs/status-effect/Iceblight_Icon.png';
+import ThunderBlight from './../imgs/status-effect/Thunderblight_Icon.png';
+import WaterBlight from './../imgs/status-effect/Waterblight_Icon.png';
+
+// css
+import effectStyle from './../imgs/status-effect/effects.module.css';
+
 interface IProps { 
     location: any,
     dataObj: any
@@ -131,23 +141,23 @@ export class ArmorData extends React.Component<IProps, IState> {
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Fire:</td>
+                        <td><img src={FireBlight} alt="Fire.jpg" className={effectStyle.effect} title={'Fire'}></img></td>
                         <td>{resistances?.fire} </td>
                     </tr>
                     <tr>
-                        <td>Water:</td>
+                        <td><img src={WaterBlight} alt="Water.jpg" className={effectStyle.effect} title={'Water'}></img></td>
                         <td>{resistances?.water} </td>
                     </tr>
                     <tr>
-                        <td>Ice</td>
+                        <td><img src={IceBlight} alt="Ice.jpg" className={effectStyle.effect} title={'Ice'}></img></td>
                         <td>{resistances?.ice} </td>
                     </tr>
                     <tr>
-                        <td>Thunder:</td>
+                        <td><img src={ThunderBlight} alt="Thunder.jpg" className={effectStyle.effect} title={'Thunder'}></img></td>
                         <td>{resistances?.thunder} </td>
                     </tr>
                     <tr>
-                        <td>Dragon</td>
+                        <td><img src={DragonBlight} alt="Dragon.jpg" className={effectStyle.effect} title={'Dragon'}></img></td>
                         <td>{resistances?.dragon} </td>
                     </tr>
                 </tbody>
