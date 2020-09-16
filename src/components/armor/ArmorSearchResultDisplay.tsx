@@ -2,11 +2,12 @@ import * as React from 'react';
 import { useState } from 'react';
 import Armor from './Armor.js';
 import { Link } from 'react-router-dom';
-import {ArmorData} from './../ArmorData.js';
+import {ArmorData} from './ArmorData';
 
 
 interface IProps {
-    armorSearchResults: Armor[]
+    armorSearchResults: Armor[],
+    armorSearchString: string
 }
 
 // Link uses state and should be rendered on row creation of table
@@ -45,7 +46,10 @@ export default function ArmorSearchResultsDisplay(props: IProps) {
                     <td><Link to=
                         {{
                             pathname: "/armor-data",
-                            state: { armorId: armor.id }
+                            state: { 
+                                armorId: armor.id,
+                                armorSearch: props.armorSearchString
+                            }
                         }} >{armor.name}
                     </Link></td>
                   

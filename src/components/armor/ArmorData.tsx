@@ -1,29 +1,34 @@
 ﻿import * as React from 'react';
-import Armor from './armor/Armor'
-import Defense from './shared-stats/defense.js';
-import { Table, Container, Row, Col } from 'reactstrap';
-import Resistances from './shared-stats/resistances.js';
-import ArmorAttributes from './shared-stats/armor-attributes.js';
-import SkillRank from './shared-stats/skill-rank.js';
+import Armor from './Armor'
+import Defense from '../shared-stats/defense.js';
+import { Table, Container, Row, Col, NavItem, NavLink } from 'reactstrap';
+import { Link } from 'react-router-dom';
+import Resistances from '../shared-stats/resistances.js';
+import ArmorAttributes from '../shared-stats/armor-attributes.js';
+import SkillRank from '../shared-stats/skill-rank.js';
 
 // Images
-import DragonBlight from './../imgs/status-effect/DragonBlight_Icon.png';
-import FireBlight from './../imgs/status-effect/Fireblight_Icon.png';
-import IceBlight from './../imgs/status-effect/Iceblight_Icon.png';
-import ThunderBlight from './../imgs/status-effect/Thunderblight_Icon.png';
-import WaterBlight from './../imgs/status-effect/Waterblight_Icon.png';
+import DragonBlight from '../../imgs/status-effect/DragonBlight_Icon.png';
+import FireBlight from '../../imgs/status-effect/Fireblight_Icon.png';
+import IceBlight from '../../imgs/status-effect/Iceblight_Icon.png';
+import ThunderBlight from '../../imgs/status-effect/Thunderblight_Icon.png';
+import WaterBlight from '../../imgs/status-effect/Waterblight_Icon.png';
+import { loading } from '../loading/DisplayLoadingSpinner'
 
 // css
-import effectStyle from './../imgs/status-effect/effects.module.css';
+import effectStyle from '../../imgs/status-effect/effects.module.css';
+import  '../slides.css';
 
 interface IProps { 
-    location: any,
+    location: any,      // route location which holds prop data through location.state
+    armorSearch?: string,
     dataObj: any
 }
 
 interface IState {
     //armorId: number
     armorState: Armor,
+    prevArmorSearch?: string,
     loading: boolean;
 }
 
@@ -35,6 +40,7 @@ export class ArmorData extends React.Component<IProps, IState> {
         this.state = {
             //armorId: this.props.location.state.armorId,
             armorState: new Armor(null),
+            prevArmorSearch: this.props.location.state.armorSearch,
             loading: true
         };
     }
@@ -56,7 +62,7 @@ export class ArmorData extends React.Component<IProps, IState> {
                         <Table className='table table-striped'>
                             <thead>
                                 <tr>
-                                    <th>Name: </th>
+                                    {/* <th>Name: </th> */}
                                     <th>{armor.name} </th>
                                 </tr>
                                 {
@@ -95,7 +101,7 @@ export class ArmorData extends React.Component<IProps, IState> {
                 {/*Render Defensive Stats*/}
                 <Row>
                     <Col>{ArmorData.renderArmorDefense(armor.defense)}</Col>
-                    <Col>{ArmorData.renderArmorResistances(armor.resistances)}</Col>
+                    <Col className="div.relative">{ArmorData.renderArmorResistances(armor.resistances)}</Col>
                 </Row>
                 <Row>
                     <Col>{ArmorData.renderArmorSkills(armor.skills)}</Col>
@@ -178,6 +184,7 @@ export class ArmorData extends React.Component<IProps, IState> {
                     {skills?.map(skill =>
                         <tr key={skill.id} >
                             <td>{skill.skillName}</td>
+                            <td>{skill.description}</td>
                             <td>Level {skill.level}</td>
                         </tr>
                     )}
@@ -191,12 +198,26 @@ export class ArmorData extends React.Component<IProps, IState> {
     render()
     {
         let contents = this.state.loading ?
-            <p><em>Loading...</em></p> :
+            loading :
             ArmorData.renderArmorStats(this.state.armorState); //
 
         return (
             <div>
-                <p> Armor Data </p>
+                <p  style={{display: 'flex', justifyContent: 'right'}}>Armor Data </p>
+
+                  {/* <NavLink tag={Link} className="text-dark" to="/armor-search">Return to {this.state.prevArmorSearch} Results</NavLink> */}
+                  <Link to=
+                        {{
+                            pathname: "/armor-search",
+                            state: { 
+                                armorSearch: this.state.prevArmorSearch
+                            }
+                        }} 
+                        
+                        style={{display: 'flex', justifyContent: 'right'}}>
+                        Return to {this.state.prevArmorSearch} Results
+                    </Link>
+
                 {contents}
             </div>
         );
